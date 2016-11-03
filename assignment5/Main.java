@@ -58,7 +58,8 @@ public class Main extends Application {
      * and the second is test (for test output, where all output to be directed to a String), or nothing.
      */
     public static void main(String[] args) {
-		File folder = new File("//Users/aliziyaan/IdeaProjects/Project5/src/assignment5");
+		File folder = new File(System.getProperty("user.dir") + "/src/assignment5");
+		//System.out.println(System.getProperty("user.dir"));
 		listOfFiles = folder.listFiles();
 		for(File f: listOfFiles){
 			fileName.add(f.getName());
