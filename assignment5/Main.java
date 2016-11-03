@@ -12,7 +12,16 @@
  */
 
 package assignment5; // cannot be in default package
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 import java.lang.reflect.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.io.*;
@@ -23,7 +32,7 @@ import java.io.*;
  * input file is optional.  If input file is specified, the word 'test' is optional.
  * May not use 'test' argument without specifying input file.
  */
-public class Main {
+public class Main extends Application {
 
     static Scanner kb;	// scanner connected to keyboard input, or input file
     private static String inputFile;	// input file, used instead of keyboard input if specified
@@ -31,6 +40,11 @@ public class Main {
     private static String myPackage;	// package of Critter file.  Critter cannot be in default pkg.
     private static boolean DEBUG = false; // Use it or not, as you wish!
     static PrintStream old = System.out;	// if you want to restore output to console
+	Stage window;
+	Scene scene;
+	Button button;
+	static private File[] listOfFiles;
+	static private ArrayList<String> fileName = new ArrayList<>();
 
 
     // Gets the package name.  The usage assumes that Critter and its subclasses are all in the same package.
@@ -43,7 +57,16 @@ public class Main {
      * @param args args can be empty.  If not empty, provide two parameters -- the first is a file name, 
      * and the second is test (for test output, where all output to be directed to a String), or nothing.
      */
-    public static void main(String[] args) { 
+    public static void main(String[] args) {
+		File folder = new File("//Users/aliziyaan/IdeaProjects/Project5/src/assignment5");
+		listOfFiles = folder.listFiles();
+		for(File f: listOfFiles){
+			fileName.add(f.getName());
+			System.out.println(f.getName());
+		}
+
+		launch(args);
+
         if (args.length != 0) {
             try {
                 inputFile = args[0];
@@ -184,4 +207,34 @@ public class Main {
         System.out.flush();
 
     }
+
+    public void start(Stage primaryStage) throws Exception {
+		window = primaryStage;
+		window.setTitle("This is a test!");
+		button = new Button("Touch Me!");
+
+		ChoiceBox<String> choiceBox = new ChoiceBox<>();
+
+		for(String s: fileName){
+			choiceBox.getItems().add(s);
+		}
+
+		choiceBox.setValue("Craig.java");
+
+		button.setOnAction(e -> getChoice(choiceBox));
+
+		VBox layout = new VBox(10);
+		layout.setPadding(new Insets(20, 20, 20, 20));
+		layout.getChildren().addAll(choiceBox, button);
+
+		scene = new Scene(layout, 300 , 250);
+		window.setScene(scene);
+		window.show();
+
+
+	}
+
+	private void getChoice (ChoiceBox<String> choiceBox) {
+		System.out.println(choiceBox.getValue());
+	}
 }
