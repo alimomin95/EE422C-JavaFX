@@ -62,9 +62,26 @@ public class Main extends Application {
 		//System.out.println(System.getProperty("user.dir"));
 		listOfFiles = folder.listFiles();
 		for(File f: listOfFiles){
-			fileName.add(f.getName());
-			System.out.println(f.getName());
+			if(f.getName().equals("Params.java") || f.getName().equals("Main.java") || f.getName().equals("InvalidCritterException.java") || f.getName().equals("Header.java") || f.getName().equals("Critter.java")) {
+				continue;
+			}
+			String name = f.getName();
+			ArrayList<Character> cBuilder = new ArrayList<>();
+			for(int i = 0; i < name.length(); i ++){
+				if(name.charAt(i) == '.'){
+					break;
+				}
+				cBuilder.add(name.charAt(i));
+			}
+			char[] c = new char[cBuilder.size()];
+			for(int i = 0; i < cBuilder.size(); i ++){
+				c[i] = cBuilder.get(i);
+			}
+			String temp = new String(c);
+			fileName.add(temp);
+			System.out.println(temp);
 		}
+
 
 		launch(args);
 
@@ -220,7 +237,7 @@ public class Main extends Application {
 			choiceBox.getItems().add(s);
 		}
 
-		choiceBox.setValue("Craig.java");
+		choiceBox.setValue("Craig");
 
 		button.setOnAction(e -> getChoice(choiceBox));
 
@@ -228,7 +245,7 @@ public class Main extends Application {
 		layout.setPadding(new Insets(20, 20, 20, 20));
 		layout.getChildren().addAll(choiceBox, button);
 
-		scene = new Scene(layout, 300 , 250);
+		scene = new Scene(layout, 600 , 250);
 		window.setScene(scene);
 		window.show();
 
