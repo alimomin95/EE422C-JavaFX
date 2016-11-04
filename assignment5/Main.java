@@ -13,12 +13,16 @@
 
 package assignment5; // cannot be in default package
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.lang.reflect.*;
@@ -229,12 +233,13 @@ public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
-		window.setTitle("This is a test!");
+		window.setTitle("Configuration Panel");
 		TextField number = new TextField();
-		number.setText("Enter a number (Default value is 1)");
+		//number.setText("Enter a number (Default value is 1)");
 		button = new Button("Make");
 		Button button2 = new Button("Step");
 		Button button3 = new Button("Show");
+		Button quit = new Button("Quit");
 
 		ChoiceBox<String> choiceBox = new ChoiceBox<>();
 
@@ -253,14 +258,49 @@ public class Main extends Application {
 		});
 		button2.setOnAction(e -> stepChoice());
 		button3.setOnAction(e -> showChoice());
+		quit.setOnAction(e -> Platform.exit());
 
-		VBox layout = new VBox(10);
-		layout.setPadding(new Insets(20, 20, 20, 20));
-		layout.getChildren().addAll(number, choiceBox, button, button2, button3);
+		GridPane grid = new GridPane();
+		grid.setAlignment(Pos.CENTER);
+		grid.setHgap(10);
+		grid.setVgap(5);
+		grid.setPadding(new Insets(2, 2, 2, 2));
 
-		scene = new Scene(layout, 600 , 250);
+		Text welcome = new Text("Welcome to Critters!");
+		welcome.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+		Label make = new Label("Make critter: ");
+
+		number.setMaxWidth(40);
+
+		grid.add(welcome, 0, 0, 3, 1);
+		grid.add(make, 0, 1, 1, 1);
+		grid.add(number, 1, 1, 1, 1);
+		grid.add(choiceBox, 2, 1, 1, 1);
+		grid.add(button, 3, 1, 1, 1);
+		grid.add(button2, 3, 3, 1, 1);
+		grid.add(button3, 3, 5, 1, 1);
+		grid.add(quit, 3, 7, 1, 1);
+
+
+		grid.setGridLinesVisible(false);
+
+		Slider slide = new Slider();
+		slide.setMin(0);
+		slide.setMax(1000);
+		slide.setShowTickLabels(true);
+		slide.setShowTickMarks(true);
+		slide.setMajorTickUnit(50);
+		slide.setMinorTickCount(1);
+		slide.setBlockIncrement(10);
+
+		//VBox layout = new VBox(10);
+		//layout.setPadding(new Insets(20, 20, 20, 20));
+		//layout.getChildren().addAll(slide, choiceBox, button, button2, button3);
+
+		scene = new Scene(grid, 400 , 300);
 		window.setScene(scene);
 		window.show();
+
 
 
 
