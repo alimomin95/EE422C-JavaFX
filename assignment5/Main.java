@@ -17,6 +17,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -229,7 +230,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
 		window.setTitle("This is a test!");
-		button = new Button("Touch Me!");
+		TextField number = new TextField();
+		number.setText("Enter a number (Default value is 1)");
+		button = new Button("Make");
+		Button button2 = new Button("Step");
+		Button button3 = new Button("Show");
 
 		ChoiceBox<String> choiceBox = new ChoiceBox<>();
 
@@ -239,20 +244,41 @@ public class Main extends Application {
 
 		choiceBox.setValue("Craig");
 
-		button.setOnAction(e -> getChoice(choiceBox));
+		button.setOnAction(e -> {
+			try {
+				getChoice(choiceBox, number);
+			} catch (InvalidCritterException e1) {
+				e1.printStackTrace();
+			}
+		});
+		button2.setOnAction(e -> stepChoice());
+		button3.setOnAction(e -> showChoice());
 
 		VBox layout = new VBox(10);
 		layout.setPadding(new Insets(20, 20, 20, 20));
-		layout.getChildren().addAll(choiceBox, button);
+		layout.getChildren().addAll(number, choiceBox, button, button2, button3);
 
 		scene = new Scene(layout, 600 , 250);
 		window.setScene(scene);
 		window.show();
 
 
+
 	}
 
-	private void getChoice (ChoiceBox<String> choiceBox) {
-		System.out.println(choiceBox.getValue());
+	private void getChoice (ChoiceBox<String> choiceBox, TextField number) throws InvalidCritterException {
+		Integer n = Integer.valueOf(number.getText());
+		for(int i = 0; i <= n; i++){
+			Critter.makeCritter(choiceBox.getValue());
+		}
+
+	}
+
+	private void stepChoice(){
+		Critter.worldTimeStep();
+	}
+
+	private void showChoice(){
+		Critter.displayWorld();
 	}
 }
