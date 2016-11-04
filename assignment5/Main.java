@@ -235,11 +235,17 @@ public class Main extends Application {
 		window = primaryStage;
 		window.setTitle("Configuration Panel");
 		TextField number = new TextField();
+		TextField stepCount = new TextField();
 		//number.setText("Enter a number (Default value is 1)");
 		button = new Button("Make");
-		Button button2 = new Button("Step");
-		Button button3 = new Button("Show");
+		Button step = new Button("Step");
+		Button show = new Button("Show");
 		Button quit = new Button("Quit");
+
+		button.setMaxWidth(60);
+		step.setMaxWidth(60);
+		show.setMaxWidth(60);
+		quit.setMaxWidth(60);
 
 		ChoiceBox<String> choiceBox = new ChoiceBox<>();
 
@@ -256,9 +262,9 @@ public class Main extends Application {
 				e1.printStackTrace();
 			}
 		});
-		button2.setOnAction(e -> stepChoice());
-		button3.setOnAction(e -> showChoice());
-		quit.setOnAction(e -> Platform.exit());
+		step.setOnAction(e -> stepChoice(stepCount));
+		show.setOnAction(e -> showChoice());
+		quit.setOnAction(e -> System.exit(0));
 
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -272,13 +278,18 @@ public class Main extends Application {
 
 		number.setMaxWidth(40);
 
+
+		stepCount.setMaxWidth(40);
+
+
 		grid.add(welcome, 0, 0, 3, 1);
 		grid.add(make, 0, 1, 1, 1);
-		grid.add(number, 1, 1, 1, 1);
-		grid.add(choiceBox, 2, 1, 1, 1);
+		grid.add(choiceBox, 1, 1, 1, 1);
+		grid.add(number, 2, 1, 1, 1);
 		grid.add(button, 3, 1, 1, 1);
-		grid.add(button2, 3, 3, 1, 1);
-		grid.add(button3, 3, 5, 1, 1);
+		grid.add(stepCount, 2, 3, 1, 1);
+		grid.add(step, 3, 3, 1, 1);
+		grid.add(show, 3, 5, 1, 1);
 		grid.add(quit, 3, 7, 1, 1);
 
 
@@ -293,9 +304,6 @@ public class Main extends Application {
 		slide.setMinorTickCount(1);
 		slide.setBlockIncrement(10);
 
-		//VBox layout = new VBox(10);
-		//layout.setPadding(new Insets(20, 20, 20, 20));
-		//layout.getChildren().addAll(slide, choiceBox, button, button2, button3);
 
 		scene = new Scene(grid, 400 , 300);
 		window.setScene(scene);
@@ -307,15 +315,27 @@ public class Main extends Application {
 	}
 
 	private void getChoice (ChoiceBox<String> choiceBox, TextField number) throws InvalidCritterException {
-		Integer n = Integer.valueOf(number.getText());
-		for(int i = 0; i <= n; i++){
-			Critter.makeCritter(choiceBox.getValue());
+		try {
+			Integer n = Integer.valueOf(number.getText());
+			for (int i = 0; i <= n; i++) {
+				Critter.makeCritter(choiceBox.getValue());
+			}
+		}catch (Exception e){
+			System.out.println("Please enter a valid integer");
 		}
 
 	}
 
-	private void stepChoice(){
-		Critter.worldTimeStep();
+	private void stepChoice(TextField stepCount){
+		try{
+			Integer n = Integer.valueOf(stepCount.getText());
+			for(int i = 1; i <= n; i++){
+				Critter.worldTimeStep();
+			}
+		}catch(Exception e){
+			System.out.println("Please enter a valid integer");
+		}
+		
 	}
 
 	private void showChoice(){
