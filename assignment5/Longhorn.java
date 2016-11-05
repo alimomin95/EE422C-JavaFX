@@ -14,6 +14,11 @@
 
 package assignment5;
 
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+
+import java.awt.*;
+
 //Created by Quinn Z.
 public class Longhorn extends Critter {
 	int gpa = 400; //start with that sweet sweet 4.00
@@ -32,6 +37,16 @@ public class Longhorn extends Critter {
     		return true;
     	}
     	return false;
+    }
+
+    @Override
+    public Shape getShape() {
+        return new Rectangle();
+    }
+
+    @Override
+    public String getColor() {
+        return "orange";
     }
 
     @Override

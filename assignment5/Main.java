@@ -50,6 +50,8 @@ public class Main extends Application {
 	Button button;
 	static private File[] listOfFiles;
 	static private ArrayList<String> fileName = new ArrayList<>();
+	static public GridPane worldGrid;
+	Stage board;
 
 
     // Gets the package name.  The usage assumes that Critter and its subclasses are all in the same package.
@@ -90,6 +92,7 @@ public class Main extends Application {
 
 		launch(args);
 
+		/*
         if (args.length != 0) {
             try {
                 inputFile = args[0];
@@ -119,7 +122,7 @@ public class Main extends Application {
         /* Write your code below. */
         
         //System.out.println("GLHF");
-        
+        /*
         boolean playing = true;
         
         String input;
@@ -227,16 +230,17 @@ public class Main extends Application {
         
         
         /* Write your code above */
-        System.out.flush();
+        //System.out.flush();
 
     }
 
     public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
 		window.setTitle("Configuration Panel");
+
 		TextField number = new TextField();
 		TextField stepCount = new TextField();
-		//number.setText("Enter a number (Default value is 1)");
+
 		button = new Button("Make");
 		Button step = new Button("Step");
 		Button show = new Button("Show");
@@ -269,7 +273,7 @@ public class Main extends Application {
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
-		grid.setVgap(5);
+		grid.setVgap(15);
 		grid.setPadding(new Insets(2, 2, 2, 2));
 
 		Text welcome = new Text("Welcome to Critters!");
@@ -309,7 +313,16 @@ public class Main extends Application {
 		window.setScene(scene);
 		window.show();
 
+		worldGrid = new GridPane();
 
+		board = new Stage();
+		board.setTitle("World");
+
+		worldGrid.setGridLinesVisible(true);
+
+		Scene secondScene = new Scene(worldGrid, Params.world_width*20, Params.world_height*20);
+		board.setScene(secondScene);
+		board.show();
 
 
 	}
@@ -335,7 +348,7 @@ public class Main extends Application {
 		}catch(Exception e){
 			System.out.println("Please enter a valid integer");
 		}
-		
+
 	}
 
 	private void showChoice(){

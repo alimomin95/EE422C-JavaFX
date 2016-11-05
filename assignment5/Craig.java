@@ -14,6 +14,9 @@
 
 package assignment5;
 
+import java.awt.*;
+
+
 /*
  * Example critter
  */
@@ -34,6 +37,8 @@ public class Craig extends Critter {
 	}
 	
 	public boolean fight(String not_used) { return true; }
+
+
 
 	@Override
 	public void doTimeStep() {
@@ -85,5 +90,15 @@ public class Craig extends Critter {
 		System.out.print("" + total_right / (GENE_TOTAL * 0.01 * craigs.size()) + "% right   ");
 		System.out.print("" + total_left / (GENE_TOTAL * 0.01 * craigs.size()) + "% left   ");
 		System.out.println();
+	}
+
+	@Override
+	public javafx.scene.shape.Shape getShape() {
+		return new javafx.scene.shape.Rectangle();
+	}
+
+	@Override
+	public String getColor() {
+		return "magenta";
 	}
 }

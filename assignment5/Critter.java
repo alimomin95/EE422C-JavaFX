@@ -12,6 +12,13 @@
  */
 package assignment5;
 
+import javafx.scene.paint.*;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.*;
+import javafx.scene.shape.Shape;
+
+import java.awt.*;
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -259,6 +266,11 @@ public abstract class Critter {
 	
 	
 	public abstract boolean fight(String oponent);
+
+
+	public abstract javafx.scene.shape.Shape getShape();
+
+	public abstract String getColor();
 	
 	/**
 	 * create and initialize a Critter subclass.
@@ -561,6 +573,36 @@ public abstract class Critter {
 			//System.out.print(i);
 		//}
 
+
+
+
+
+
+
+
+
+		Main.worldGrid.setHgap(5);
+		Main.worldGrid.setVgap(5);
+
+		Main.worldGrid.getChildren().clear();
+
+		for(Critter c: population){
+			int x = c.x_coord;
+			int y = c.y_coord;
+
+			Shape shape = c.getShape();
+			String color = c.getColor();
+			shape.setFill(Paint.valueOf(color));
+			Main.worldGrid.add(shape,x,y);
+		}
+
+
+
+
+
+
+
+		/*
 		System.out.print("+");
 		
 		for(int i = 0; i < Params.world_width; i++){
@@ -593,6 +635,7 @@ public abstract class Critter {
 			System.out.print("-");
 		}
 		System.out.println("+");
-
+	*/
 	}
+
 }

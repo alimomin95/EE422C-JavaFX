@@ -13,6 +13,11 @@
 
 package assignment5;
 
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+
+import java.awt.*;
+
 //Created by Quinn Z.
 public class Aggie extends Critter {
 	int cultPower = 0;
@@ -32,6 +37,16 @@ public class Aggie extends Critter {
     		return true;
     	}
     	return false;
+    }
+
+    @Override
+    public Shape getShape() {
+        return new Rectangle();
+    }
+
+    @Override
+    public String getColor() {
+        return "red";
     }
 
     @Override

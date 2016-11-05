@@ -1,5 +1,9 @@
 package assignment5;
 
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
+
+import java.awt.*;
 import java.util.List;
 import java.util.Scanner;
 
@@ -33,7 +37,17 @@ public class ManualCritter extends Critter.TestCritter {
 		if (getEnergy() > 10) return true;
 		return false;
 	}
-	
+
+	@Override
+	public Shape getShape() {
+		return new Circle();
+	}
+
+	@Override
+	public String getColor() {
+		return "black";
+	}
+
 	public String toString() {
 		return "1";
 	}

@@ -13,6 +13,11 @@
 
 package assignment5;
 
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
+
+import java.awt.*;
+
 /**
  * Created by aliziyaan on 10/20/16.
  */
@@ -29,6 +34,16 @@ public class Weakling extends Critter {
         }
         run(getRandomInt(8));
         return false;
+    }
+
+    @Override
+    public Shape getShape() {
+        return new Circle();
+    }
+
+    @Override
+    public String getColor() {
+        return "gray";
     }
 
     @Override

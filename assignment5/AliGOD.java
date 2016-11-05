@@ -13,6 +13,10 @@
 
 package assignment5;
 
+import javafx.scene.shape.*;
+
+import java.awt.*;
+
 /**
  * Created by aliziyaan on 10/18/16.
  */
@@ -27,6 +31,16 @@ public class AliGOD extends Critter{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public javafx.scene.shape.Shape getShape() {
+        return new Circle();
+    }
+
+    @Override
+    public String getColor() {
+        return "black";
     }
 
     @Override
@@ -45,4 +59,6 @@ public class AliGOD extends Critter{
         }
         System.out.println("There are " + total_GODS + " GODS on the map");
     }
+
+
 }
