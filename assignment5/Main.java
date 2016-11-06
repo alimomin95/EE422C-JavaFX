@@ -327,7 +327,7 @@ public class Main extends Application {
 
 		animate.setOnAction(e -> animateChoice(slide));
 
-		
+
 		scene = new Scene(grid, 400 , 300);
 		window.setScene(scene);
 		window.show();
@@ -355,6 +355,7 @@ public class Main extends Application {
 			Critter.displayWorld();
 		}catch (Exception e){
 			System.out.println("Please enter a valid integer");
+			AlertBox.display("Invalid Input", "Please enter a valid integer!");
 		}
 
 	}
@@ -368,6 +369,7 @@ public class Main extends Application {
 			Critter.displayWorld();
 		}catch(Exception e){
 			System.out.println("Please enter a valid integer");
+			AlertBox.display("Invalid Input", "Please enter a valid integer!");
 		}
 
 	}
