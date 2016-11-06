@@ -16,6 +16,7 @@ public class AlertBox {
         window.setTitle(title);
         window.setMinWidth(200);
         window.setMinHeight(100);
+        window.setAlwaysOnTop(true);
 
         Label label = new Label();
         label.setText(message);
