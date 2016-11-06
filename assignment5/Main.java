@@ -249,7 +249,16 @@ public class Main extends Application {
 		Button step = new Button("Step");
 		Button show = new Button("Show");
 		Button quit = new Button("Quit");
+		
+		Button animate = new Button("Animate");
+		ChoiceBox<Integer> speed = new ChoiceBox<Integer>();
+		
+		speed.getItems().add(1);
+		speed.getItems().add(2);
+		speed.getItems().add(3);
 
+		
+		
 		button.setMaxWidth(60);
 		step.setMaxWidth(60);
 		show.setMaxWidth(60);
@@ -299,20 +308,25 @@ public class Main extends Application {
 		grid.add(step, 3, 3, 1, 1);
 		grid.add(show, 3, 5, 1, 1);
 		grid.add(quit, 3, 7, 1, 1);
+		grid.add(animate, 0, 7, 1, 1);
 
-
+		
 		grid.setGridLinesVisible(false);
 
 		Slider slide = new Slider();
-		slide.setMin(0);
-		slide.setMax(1000);
+		slide.setMin(1);
+		slide.setMax(10);
 		slide.setShowTickLabels(true);
 		slide.setShowTickMarks(true);
-		slide.setMajorTickUnit(50);
-		slide.setMinorTickCount(1);
-		slide.setBlockIncrement(10);
+		slide.setMajorTickUnit(1);
+		slide.setMinorTickCount(0);
+		slide.setBlockIncrement(1);
+		slide.setSnapToTicks(true);
+		grid.add(slide, 1, 7);
 
+		animate.setOnAction(e -> animateChoice(slide));
 
+		
 		scene = new Scene(grid, 400 , 300);
 		window.setScene(scene);
 		window.show();
@@ -353,6 +367,10 @@ public class Main extends Application {
 			System.out.println("Please enter a valid integer");
 		}
 
+	}
+	
+	private void animateChoice(Slider slider){
+		System.out.println((int) slider.getValue());
 	}
 
 	private void showChoice(){
