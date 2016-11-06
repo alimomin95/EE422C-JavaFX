@@ -21,6 +21,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -333,7 +334,7 @@ public class Main extends Application {
 
 		// ------------------------------------------------- world screen
 		worldGrid = new GridPane();
-
+		worldGrid.setAlignment(Pos.CENTER);
 		board = new Stage();
 		board.setTitle("World");
 
