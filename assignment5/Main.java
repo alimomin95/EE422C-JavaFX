@@ -55,7 +55,7 @@ public class Main extends Application {
 	static private File[] listOfFiles;
 	static private ArrayList<String> fileName = new ArrayList<>();
 	static public GridPane worldGrid;
-	Stage board;
+	static public Stage board;
 
 
     // Gets the package name.  The usage assumes that Critter and its subclasses are all in the same package.
@@ -273,7 +273,7 @@ public class Main extends Application {
 		step.setOnAction(e -> stepChoice(stepCount));
 		show.setOnAction(e -> showChoice());
 		quit.setOnAction(e -> System.exit(0));
-
+		
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -328,15 +328,13 @@ public class Main extends Application {
 		Painter.paint();
 		board.setScene(secondScene);
 		board.show();
-
-
 	}
     
 
 	private void getChoice (ChoiceBox<String> choiceBox, TextField number) throws InvalidCritterException {
 		try {
 			Integer n = Integer.valueOf(number.getText());
-			for (int i = 0; i <= n; i++) {
+			for (int i = 0; i < n; i++) {
 				Critter.makeCritter(choiceBox.getValue());
 			}
 		}catch (Exception e){

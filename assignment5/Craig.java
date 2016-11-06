@@ -1,25 +1,5 @@
-/* CRITTERS Craig.java
- * EE422C Project 5 submission by
- * Quinten Zambeck
- * qaz62
- * 16470
- * Ali Ziyaan Momin
- * AZM259
- * 16470
- * Slip days used: 0
- * Fall 2016
- * GitHub URL: https://github.com/alimomin95/EE422C-JavaFX.git
- */
-
-
 package assignment5;
 
-import java.awt.*;
-
-
-/*
- * Example critter
- */
 public class Craig extends Critter {
 	
 	@Override
@@ -37,8 +17,6 @@ public class Craig extends Critter {
 	}
 	
 	public boolean fight(String not_used) { return true; }
-
-
 
 	@Override
 	public void doTimeStep() {
@@ -91,14 +69,11 @@ public class Craig extends Critter {
 		System.out.print("" + total_left / (GENE_TOTAL * 0.01 * craigs.size()) + "% left   ");
 		System.out.println();
 	}
+	
+	@Override
+	public CritterShape viewShape() { return CritterShape.SQUARE; }
 
 	@Override
-	public javafx.scene.shape.Shape getShape() {
-		return new javafx.scene.shape.Rectangle();
-	}
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.BLUE; }
 
-	@Override
-	public String getColor() {
-		return "magenta";
-	}
 }

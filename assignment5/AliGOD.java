@@ -17,6 +17,8 @@ import javafx.scene.shape.*;
 
 import java.awt.*;
 
+import assignment5.Critter.CritterShape;
+
 /**
  * Created by aliziyaan on 10/18/16.
  */
@@ -33,15 +35,11 @@ public class AliGOD extends Critter{
         return true;
     }
 
-    @Override
-    public javafx.scene.shape.Shape getShape() {
-        return new Circle();
-    }
+	@Override
+	public CritterShape viewShape() { return CritterShape.SQUARE; }
 
-    @Override
-    public String getColor() {
-        return "black";
-    }
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.BLUE; }
 
     @Override
     public void doTimeStep(){

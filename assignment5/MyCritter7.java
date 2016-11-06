@@ -1,5 +1,6 @@
 package assignment5;
 
+import assignment5.Critter.CritterShape;
 import assignment5.Critter.TestCritter;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -19,14 +20,10 @@ public class MyCritter7 extends TestCritter {
 	}
 
 	@Override
-	public Shape getShape() {
-		return new Circle();
-	}
+	public CritterShape viewShape() { return CritterShape.SQUARE; }
 
 	@Override
-	public String getColor() {
-		return "black";
-	}
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.BLUE; }
 
 	@Override
 	public String toString () {

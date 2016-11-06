@@ -18,6 +18,8 @@ import javafx.scene.shape.Shape;
 
 import java.awt.*;
 
+import assignment5.Critter.CritterShape;
+
 //Created by Quinn Z.
 public class Aggie extends Critter {
 	int cultPower = 0;
@@ -39,15 +41,11 @@ public class Aggie extends Critter {
     	return false;
     }
 
-    @Override
-    public Shape getShape() {
-        return new Rectangle();
-    }
+	@Override
+	public CritterShape viewShape() { return CritterShape.SQUARE; }
 
-    @Override
-    public String getColor() {
-        return "red";
-    }
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.BLUE; }
 
     @Override
     public void doTimeStep() {

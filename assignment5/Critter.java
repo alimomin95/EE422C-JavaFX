@@ -12,16 +12,24 @@
  */
 package assignment5;
 
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 import java.awt.*;
-import java.awt.Color;
+//import java.awt.Color;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
+import javafx.scene.shape.Shape;
+
+
 
 /* see the PDF for descriptions of the methods and fields in this class
  * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
@@ -38,7 +46,25 @@ public abstract class Critter {
 	//Keeps track of how many critters exist on each given space
 	private static int[][] positionMap = new int[Params.world_width][Params.world_height];
 	private static List<Critter> fightClub = new java.util.ArrayList<Critter>();
+
+	public javafx.scene.paint.Color viewColor() { 
+		return javafx.scene.paint.Color.WHITE; 
+	}
 	
+	public javafx.scene.paint.Color viewOutlineColor() { return viewColor(); }
+	public javafx.scene.paint.Color viewFillColor() { return viewColor(); }
+	
+	public CritterShape viewShape() { return CritterShape.SQUARE;} 
+	
+	public enum CritterShape {
+		CIRCLE,
+		SQUARE,
+		TRIANGLE,
+		DIAMOND,
+		STAR
+	}
+
+
 	
 	private boolean hasMoved = false;
 	
@@ -46,6 +72,10 @@ public abstract class Critter {
 	static {
 		myPackage = Critter.class.getPackage().toString().split(" ")[1];
 	}
+
+	// this is new!!!!!!!
+	protected String look(int direction, boolean steps) {return "";}
+
 	
 	private static java.util.Random rand = new java.util.Random();
 	public static int getRandomInt(int max) {
@@ -268,9 +298,7 @@ public abstract class Critter {
 	public abstract boolean fight(String oponent);
 
 
-	public abstract javafx.scene.shape.Shape getShape();
 
-	public abstract String getColor();
 	
 	/**
 	 * create and initialize a Critter subclass.
@@ -332,6 +360,8 @@ public abstract class Critter {
 		}
 		return result;
 	}
+	
+
 	
 	/**
 	 * Prints out how many Critters of each type there are on the board.
@@ -566,38 +596,41 @@ public abstract class Critter {
 		fightClub.clear();
 	}
 	
-	
+	public static Shape getIcon(Critter c){
+		Shape s;
+		
+		int size = 20;
+		/*
+		switch (c.viewShape()) {
+		case SQUARE: s = new Rectangle(size, size);
+					 s.setFill(c.viewColor()); break;
+		}
+		*/
+		s = new Rectangle(size, size);
+		s.setFill(c.viewColor());
+		s.setStroke(javafx.scene.paint.Color.BLUE);
+		return s;
+	}
+		
 	public static void displayWorld() {
-		//System.out.print("  ");
-		//for(int i = 0; i < Params.world_width; i++){
-			//System.out.print(i);
-		//}
-
-
-
-
-
-
-
-
-
-		Main.worldGrid.setHgap(5);
-		Main.worldGrid.setVgap(5);
+		//GridPane newWorldGrid = new GridPane();
+		//newWorldGrid.setHgap(5);
+		//newWorldGrid.setHgap(5);
 
 		Main.worldGrid.getChildren().clear();
-
 		for(Critter c: population){
 			int x = c.x_coord;
 			int y = c.y_coord;
-
-			Shape shape = c.getShape();
-			String color = c.getColor();
-			shape.setFill(Paint.valueOf(color));
-			Main.worldGrid.add(shape,x,y);
+			//Shape shape = c.(c);
+			Shape shape = getIcon(c);
+			//Main.worldGrid.add(shape,x,y);
+			Main.worldGrid.add(shape,  x,  y);
 		}
-
-
-
+		//Scene secondScene = new Scene(Main.worldGrid, Params.world_width*30, Params.world_height*30);
+		//Scene newScreen = new Scene(Main.worldGrid, Params.world_width*30, Params.world_height*30);
+		//Main.board.setScene(newScreen);
+		
+		Main.board.show();
 
 
 

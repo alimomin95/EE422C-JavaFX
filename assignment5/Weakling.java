@@ -18,6 +18,8 @@ import javafx.scene.shape.Shape;
 
 import java.awt.*;
 
+import assignment5.Critter.CritterShape;
+
 /**
  * Created by aliziyaan on 10/20/16.
  */
@@ -36,15 +38,11 @@ public class Weakling extends Critter {
         return false;
     }
 
-    @Override
-    public Shape getShape() {
-        return new Circle();
-    }
+	@Override
+	public CritterShape viewShape() { return CritterShape.SQUARE; }
 
-    @Override
-    public String getColor() {
-        return "gray";
-    }
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.BLUE; }
 
     @Override
     public void doTimeStep() {

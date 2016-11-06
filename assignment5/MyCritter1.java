@@ -6,6 +6,8 @@ import javafx.scene.shape.Shape;
 import java.awt.*;
 import java.util.List;
 
+import assignment5.Critter.CritterShape;
+
 public class MyCritter1 extends Critter.TestCritter {
 
 	@Override
@@ -20,14 +22,10 @@ public class MyCritter1 extends Critter.TestCritter {
 	}
 
 	@Override
-	public Shape getShape() {
-		return new Circle();
-	}
+	public CritterShape viewShape() { return CritterShape.SQUARE; }
 
 	@Override
-	public String getColor() {
-		return "black";
-	}
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.BLUE; }
 
 	public String toString() {
 		return "1";

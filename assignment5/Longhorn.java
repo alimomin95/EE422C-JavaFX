@@ -19,6 +19,8 @@ import javafx.scene.shape.Shape;
 
 import java.awt.*;
 
+import assignment5.Critter.CritterShape;
+
 //Created by Quinn Z.
 public class Longhorn extends Critter {
 	int gpa = 400; //start with that sweet sweet 4.00
@@ -39,15 +41,11 @@ public class Longhorn extends Critter {
     	return false;
     }
 
-    @Override
-    public Shape getShape() {
-        return new Rectangle();
-    }
+	@Override
+	public CritterShape viewShape() { return CritterShape.SQUARE; }
 
-    @Override
-    public String getColor() {
-        return "orange";
-    }
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.BLUE; }
 
     @Override
     public void doTimeStep() {

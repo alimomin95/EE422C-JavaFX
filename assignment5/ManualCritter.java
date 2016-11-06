@@ -7,6 +7,8 @@ import java.awt.*;
 import java.util.List;
 import java.util.Scanner;
 
+import assignment5.Critter.CritterShape;
+
 public class ManualCritter extends Critter.TestCritter {
 
 	@Override
@@ -39,14 +41,10 @@ public class ManualCritter extends Critter.TestCritter {
 	}
 
 	@Override
-	public Shape getShape() {
-		return new Circle();
-	}
+	public CritterShape viewShape() { return CritterShape.SQUARE; }
 
 	@Override
-	public String getColor() {
-		return "black";
-	}
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.BLUE; }
 
 	public String toString() {
 		return "1";
