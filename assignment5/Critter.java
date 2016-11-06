@@ -600,13 +600,14 @@ public abstract class Critter {
 		Shape s;
 		
 		int size = 20;
-		/*
 		switch (c.viewShape()) {
-		case SQUARE: s = new Rectangle(size, size);
-					 s.setFill(c.viewColor()); break;
+		case SQUARE: s = new Rectangle(size, size); break;
+		case CIRCLE: s = new Circle(size/2); break;
+		case TRIANGLE: s = new Rectangle(size, size); break;
+		case DIAMOND: s = new Rectangle(size, size); break;
+		case STAR: s = new Rectangle(size, size); break;
+		default: s = new Rectangle(size, size);
 		}
-		*/
-		s = new Rectangle(size, size);
 		s.setFill(c.viewColor());
 		s.setStroke(javafx.scene.paint.Color.BLUE);
 		return s;
