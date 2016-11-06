@@ -394,6 +394,7 @@ public class Main extends Application {
 	
 	private void animateChoice(Slider slider){
 		System.out.println((int) slider.getValue());
+		
 	}
 
 	private void showChoice(){
