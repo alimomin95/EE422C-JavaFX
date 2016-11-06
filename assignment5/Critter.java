@@ -661,12 +661,12 @@ public abstract class Critter {
 		case SQUARE: s = new Rectangle(size, size); break;
 		case CIRCLE: s = new Circle(size/2); break;
 		case TRIANGLE: s = new Polygon(size/2, 0, 0, 20, 20, 20); break;
-		case DIAMOND: s = new Rectangle(size, size); break;
-		case STAR: s = new Rectangle(size, size); break;
+		case DIAMOND: s = new Polygon(size/2, 0, 0, size/2, size/2, size, size, size/2); break;
+		case STAR: s = new Polygon(size/2, 0, 0, size, size, size/3, 0, size/3, size, size, size/2, 0); break;
 		default: s = new Rectangle(size, size);
 		}
 		s.setFill(c.viewColor());
-		s.setStroke(javafx.scene.paint.Color.BLUE);
+		s.setStroke(c.viewOutlineColor());
 		return s;
 	}
 		
