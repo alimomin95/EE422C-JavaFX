@@ -74,7 +74,63 @@ public abstract class Critter {
 	}
 
 	// this is new!!!!!!!
-	protected String look(int direction, boolean steps) {return "";}
+	protected String look(int direction, boolean steps) {
+
+		this.energy -= Params.look_energy_cost;
+
+		int dx = 0, dy = 0;
+
+		if(direction == 2){
+			dx = 0; dy = -1;
+		}
+		else if(direction == 1){
+			dx = 1; dy = -1;
+		}
+		else if(direction == 0){
+			dx = 1; dy = 0;
+		}
+		else if(direction == 7){
+			dx = 1; dy = 1;
+		}
+		else if(direction == 6){
+			dx = 0; dy = 1;
+		}
+		else if(direction == 5){
+			dx = -1; dy = 1;
+		}
+		else if(direction == 4){
+			dx = -1; dy = 0;
+		}
+		else if(direction == 3){
+			dx = -1; dy = -1;
+		}
+
+		int x = this.x_coord + dx;
+		int y = this.y_coord + dy;
+
+		if(steps){
+			x += dx;
+			y += dy;
+
+			if(positionMap[x][y] >= 1) {
+				for(Critter c: population){
+					if(onSquare(c, x, y)){
+						return c.toString();
+					}
+				}
+			}
+		}
+		else{
+			if(positionMap[x][y] >= 1) {
+				for(Critter c: population){
+					if(onSquare(c, x, y)){
+						return c.toString();
+					}
+				}
+			}
+		}
+		return "";
+	}
 
 	
 	private static java.util.Random rand = new java.util.Random();
@@ -101,7 +157,7 @@ public abstract class Critter {
 		int dx = 0, dy = 0;
 		
 		if(direction == 2){
-			dx = 0; dy = -1;;
+			dx = 0; dy = -1;
 		}
 		else if(direction == 1){
 			dx = 1; dy = -1;
