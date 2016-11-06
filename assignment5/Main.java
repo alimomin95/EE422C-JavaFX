@@ -351,6 +351,7 @@ public class Main extends Application {
 			for (int i = 0; i < n; i++) {
 				Critter.makeCritter(choiceBox.getValue());
 			}
+			Critter.displayWorld();
 		}catch (Exception e){
 			System.out.println("Please enter a valid integer");
 		}
@@ -363,6 +364,7 @@ public class Main extends Application {
 			for(int i = 1; i <= n; i++){
 				Critter.worldTimeStep();
 			}
+			Critter.displayWorld();
 		}catch(Exception e){
 			System.out.println("Please enter a valid integer");
 		}
