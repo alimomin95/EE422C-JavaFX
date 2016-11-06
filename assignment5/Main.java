@@ -16,6 +16,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -25,6 +26,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.lang.reflect.*;
@@ -243,6 +245,11 @@ public class Main extends Application {
 		window = primaryStage;
 		window.setTitle("Configuration Panel");
 
+		Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+		window.setX(20);
+		window.setY(200);
+
+
 		TextField number = new TextField();
 		TextField stepCount = new TextField();
 
@@ -283,6 +290,7 @@ public class Main extends Application {
 		step.setOnAction(e -> stepChoice(stepCount));
 		show.setOnAction(e -> showChoice());
 		quit.setOnAction(e -> System.exit(0));
+		window.setOnCloseRequest(e -> System.exit(0));
 		
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -342,13 +350,17 @@ public class Main extends Application {
 		Scene secondScene = new Scene(worldGrid, Params.world_width*20, Params.world_height*20);
 		//Painter.paint();
 		board.setScene(secondScene);
+		board.setOnCloseRequest(e -> System.exit(0));
 		board.show();
 	}
     
 
 	private void getChoice (ChoiceBox<String> choiceBox, TextField number) throws InvalidCritterException {
 		try {
-			Integer n = Integer.valueOf(number.getText());
+			Integer n = 1;
+			if(!number.getText().equals("")){
+				n = Integer.valueOf(number.getText());
+			}
 			for (int i = 0; i < n; i++) {
 				Critter.makeCritter(choiceBox.getValue());
 			}
@@ -362,12 +374,16 @@ public class Main extends Application {
 
 	private void stepChoice(TextField stepCount){
 		try{
-			Integer n = Integer.valueOf(stepCount.getText());
+			Integer n = 1;
+			if(!stepCount.getText().equals("")){
+				n = Integer.valueOf(stepCount.getText());
+			}
 			for(int i = 1; i <= n; i++){
 				Critter.worldTimeStep();
 			}
 			Critter.displayWorld();
 		}catch(Exception e){
+			e.printStackTrace();
 			System.out.println("Please enter a valid integer");
 			AlertBox.display("Invalid Input", "Please enter a valid integer!");
 		}
