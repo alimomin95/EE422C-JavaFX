@@ -19,6 +19,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -244,10 +245,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
 		window.setTitle("Configuration Panel");
-
-		Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
 		window.setX(20);
 		window.setY(200);
+		window.getIcons().add(new Image("file:critterlogo.png"));
 
 
 		TextField number = new TextField();
@@ -338,6 +338,7 @@ public class Main extends Application {
 
 		scene = new Scene(grid, 400 , 300);
 		window.setScene(scene);
+		window.setAlwaysOnTop(true);
 		window.show();
 
 		// ------------------------------------------------- world screen
@@ -353,6 +354,7 @@ public class Main extends Application {
 		board.setOnCloseRequest(e -> System.exit(0));
 		board.setMinHeight(Params.world_width*20 + 40);
 		board.setMinWidth(Params.world_height*20 + 20);
+		board.setAlwaysOnTop(true);
 		board.show();
 	}
     
@@ -385,7 +387,6 @@ public class Main extends Application {
 			}
 			Critter.displayWorld();
 		}catch(Exception e){
-			e.printStackTrace();
 			System.out.println("Please enter a valid integer");
 			AlertBox.display("Invalid Input", "Please enter a valid integer!");
 		}
