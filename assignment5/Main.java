@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -29,6 +30,9 @@ import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import com.sun.xml.internal.ws.message.stream.PayloadStreamReaderMessage;
+
 import java.io.*;
 
 
@@ -241,7 +245,7 @@ public class Main extends Application {
 		TextField number = new TextField();
 		TextField stepCount = new TextField();
 
-		button = new Button("Make");
+		Button button = new Button("Make");
 		Button step = new Button("Step");
 		Button show = new Button("Show");
 		Button quit = new Button("Quit");
@@ -313,19 +317,21 @@ public class Main extends Application {
 		window.setScene(scene);
 		window.show();
 
+		// ------------------------------------------------- world screen
 		worldGrid = new GridPane();
 
 		board = new Stage();
 		board.setTitle("World");
 
 		worldGrid.setGridLinesVisible(true);
-
-		Scene secondScene = new Scene(worldGrid, Params.world_width*20, Params.world_height*20);
+		Scene secondScene = new Scene(worldGrid, Params.world_width*30, Params.world_height*30);
+		Painter.paint();
 		board.setScene(secondScene);
 		board.show();
 
 
 	}
+    
 
 	private void getChoice (ChoiceBox<String> choiceBox, TextField number) throws InvalidCritterException {
 		try {
