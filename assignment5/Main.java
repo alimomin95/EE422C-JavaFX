@@ -55,12 +55,20 @@ public class Main extends Application {
     static PrintStream old = System.out;	// if you want to restore output to console
 	Stage window;
 	Scene scene;
-	Button button;
 	static private File[] listOfFiles;
 	static private ArrayList<String> fileName = new ArrayList<>();
 	static public GridPane worldGrid;
 	static public Stage board;
 
+	public Button button;
+	public Button step;
+	public Button show;
+	public Button quit;
+	public Button animate;
+	public TextField number;
+	public ChoiceBox<String> choiceBox;
+	TextField stepCount;
+	Slider slide;
 
     // Gets the package name.  The usage assumes that Critter and its subclasses are all in the same package.
     static {
@@ -250,20 +258,15 @@ public class Main extends Application {
 		window.getIcons().add(new Image("file:critterlogo.png"));
 
 
-		TextField number = new TextField();
-		TextField stepCount = new TextField();
+		number = new TextField();
+		stepCount = new TextField();
 
-		Button button = new Button("Make");
-		Button step = new Button("Step");
-		Button show = new Button("Show");
-		Button quit = new Button("Quit");
+		button = new Button("Make");
+		step = new Button("Step");
+		show = new Button("Show");
+		quit = new Button("Quit");
 		
-		Button animate = new Button("Animate");
-		ChoiceBox<Integer> speed = new ChoiceBox<Integer>();
-		
-		speed.getItems().add(1);
-		speed.getItems().add(2);
-		speed.getItems().add(3);
+		animate = new Button("Animate");
 
 		
 		
@@ -272,7 +275,7 @@ public class Main extends Application {
 		show.setMaxWidth(60);
 		quit.setMaxWidth(60);
 
-		ChoiceBox<String> choiceBox = new ChoiceBox<>();
+		choiceBox = new ChoiceBox<>();
 
 		for(String s: fileName){
 			choiceBox.getItems().add(s);
@@ -322,7 +325,7 @@ public class Main extends Application {
 		
 		grid.setGridLinesVisible(false);
 
-		Slider slide = new Slider();
+		slide = new Slider();
 		slide.setMin(1);
 		slide.setMax(10);
 		slide.setShowTickLabels(true);
@@ -395,6 +398,33 @@ public class Main extends Application {
 	
 	private void animateChoice(Slider slider){
 		System.out.println((int) slider.getValue());
+
+		String buttonText = animate.getText();
+		
+		if(buttonText.equals("Animate")){
+			animate.setText("Cancel");
+			button.setDisable(true);
+			step.setDisable(true);
+			show.setDisable(true);
+			quit.setDisable(true);
+			number.setDisable(true);
+			stepCount.setDisable(true);
+			choiceBox.setDisable(true);
+			slider.setDisable(true);
+
+		}
+		else{
+			animate.setText("Animate");
+			button.setDisable(false);
+			step.setDisable(false);
+			show.setDisable(false);
+			quit.setDisable(false);
+			number.setDisable(false);
+			stepCount.setDisable(false);
+			choiceBox.setDisable(false);
+			slider.setDisable(false);
+
+		}
 		
 	}
 
