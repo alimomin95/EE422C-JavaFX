@@ -86,12 +86,12 @@ public class Main extends Application {
 		//System.out.println(System.getProperty("user.dir"));
 
 		// Create a stream to hold the output
-		baos = new ByteArrayOutputStream();
-		ps = new PrintStream(baos);
+		//baos = new ByteArrayOutputStream();
+		//ps = new PrintStream(baos);
 		// IMPORTANT: Save the old System.out!
-		PrintStream old = System.out;
+		//PrintStream old = System.out;
 		// Tell Java to use your special stream
-		System.setOut(ps);
+		//System.setOut(ps);
 		// Print some output: goes to your special stream
 		//System.out.println("Foofoofoo!");
 		// Put things back
@@ -300,6 +300,8 @@ public class Main extends Application {
 		show.setMaxWidth(60);
 		quit.setMaxWidth(60);
 
+		button.setStyle("-fx-background-color:RED");
+
 		ChoiceBox<String> choiceBox = new ChoiceBox<>();
 
 		for(String s: fileName){
@@ -325,6 +327,7 @@ public class Main extends Application {
 		grid.setHgap(10);
 		grid.setVgap(15);
 		grid.setPadding(new Insets(2, 2, 2, 2));
+		grid.setStyle("-fx-background-color:GRAY");
 
 		Text welcome = new Text("Welcome to Critters!");
 		welcome.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -367,6 +370,8 @@ public class Main extends Application {
 		scene = new Scene(grid, 400 , 300);
 		window.setScene(scene);
 		window.setAlwaysOnTop(true);
+		window.setMinWidth(400);
+		window.setMinHeight(300);
 		window.show();
 
 		// ------------------------------------------------- world screen
@@ -386,6 +391,7 @@ public class Main extends Application {
 		board.show();
 
 		// -------------------------------------------------- run stats screen
+		/*
 		Stage stats = new Stage();
 		stats.setTitle("Critter Stats");
 		GridPane statsGrid = new GridPane();
@@ -411,6 +417,7 @@ public class Main extends Application {
 		stats.setScene(statsScene);
 		stats.setAlwaysOnTop(true);
 		stats.show();
+		*/
 	}
     
 
@@ -420,13 +427,16 @@ public class Main extends Application {
 			if(!number.getText().equals("")){
 				n = Integer.valueOf(number.getText());
 			}
+			if (n < 0){
+				throw new Exception();
+			}
 			for (int i = 0; i < n; i++) {
-				statsBox.getItems().add(choiceBox.getValue());
+				//statsBox.getItems().add(choiceBox.getValue());
 				Critter.makeCritter(choiceBox.getValue());
 			}
 			Critter.displayWorld();
 		}catch (Exception e){
-			//System.out.println("Please enter a valid integer");
+			System.out.println("Please enter a valid integer");
 			AlertBox.display("Invalid Input", "Please enter a valid integer!");
 		}
 
@@ -438,12 +448,15 @@ public class Main extends Application {
 			if(!stepCount.getText().equals("")){
 				n = Integer.valueOf(stepCount.getText());
 			}
+			if(n<0){
+				throw new Exception();
+			}
 			for(int i = 1; i <= n; i++){
 				Critter.worldTimeStep();
 			}
 			Critter.displayWorld();
 		}catch(Exception e){
-			//System.out.println("Please enter a valid integer");
+			System.out.println("Please enter a valid integer");
 			AlertBox.display("Invalid Input", "Please enter a valid integer!");
 		}
 
@@ -458,6 +471,7 @@ public class Main extends Application {
 		Critter.displayWorld();
 	}
 
+	/*
 	private void displayStats(GridPane statsGrid, ChoiceBox<String> statsBox) throws InvalidCritterException {
 		statsGrid.getChildren().clear();
 		statsGrid.add(statsBox, 0, 0);
@@ -491,4 +505,5 @@ public class Main extends Application {
 		}
 		statsGrid.add(new Label(baos.toString()), 0, 1);
 	}
+	*/
 }
