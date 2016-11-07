@@ -16,9 +16,11 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -30,6 +32,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +41,8 @@ import java.util.Scanner;
 import com.sun.xml.internal.ws.message.stream.PayloadStreamReaderMessage;
 
 import java.io.*;
+
+
 
 
 /*
@@ -60,6 +65,10 @@ public class Main extends Application {
 	static private ArrayList<String> fileName = new ArrayList<>();
 	static public GridPane worldGrid;
 	static public Stage board;
+	static private ArrayList<String> currentCrits = new ArrayList<>();
+	ChoiceBox<String> statsBox;
+	static public ByteArrayOutputStream baos;
+	static public PrintStream ps;
 
 
     // Gets the package name.  The usage assumes that Critter and its subclasses are all in the same package.
@@ -75,6 +84,23 @@ public class Main extends Application {
     public static void main(String[] args) {
 		File folder = new File(System.getProperty("user.dir") + "/src/assignment5");
 		//System.out.println(System.getProperty("user.dir"));
+
+		// Create a stream to hold the output
+		baos = new ByteArrayOutputStream();
+		ps = new PrintStream(baos);
+		// IMPORTANT: Save the old System.out!
+		PrintStream old = System.out;
+		// Tell Java to use your special stream
+		System.setOut(ps);
+		// Print some output: goes to your special stream
+		//System.out.println("Foofoofoo!");
+		// Put things back
+		//System.out.flush();
+		//System.setOut(old);
+		// Show what happened
+		//System.out.println("Here: " + baos.toString());
+
+
 		listOfFiles = folder.listFiles();
 		for(File f: listOfFiles){
 			if(f.getName().equals("Params.java") || f.getName().equals("Main.java") || f.getName().equals("InvalidCritterException.java") || f.getName().equals("Header.java") || f.getName().equals("Critter.java")) {
@@ -94,7 +120,7 @@ public class Main extends Application {
 			}
 			String temp = new String(c);
 			fileName.add(temp);
-			System.out.println(temp);
+			//System.out.println(temp);
 		}
 
 
@@ -243,12 +269,14 @@ public class Main extends Application {
     }
 
     public void start(Stage primaryStage) throws Exception {
+
+		//com.apple.eawt.Application.getApplication().setDockIconImage(Toolkit.getDefaultToolkit().getImage("file:critterlogo.png"));
+
 		window = primaryStage;
 		window.setTitle("Configuration Panel");
 		window.setX(20);
 		window.setY(200);
-		window.getIcons().add(new Image("file:critterlogo.png"));
-
+		//window.getIcons().add(new Image(getClass().getResourceAsStream("file:critterlogo.png")));
 
 		TextField number = new TextField();
 		TextField stepCount = new TextField();
@@ -352,10 +380,37 @@ public class Main extends Application {
 		//Painter.paint();
 		board.setScene(secondScene);
 		board.setOnCloseRequest(e -> System.exit(0));
-		board.setMinHeight(Params.world_width*20 + 40);
-		board.setMinWidth(Params.world_height*20 + 20);
+		board.setMinHeight(Params.world_width*20 + 75);
+		board.setMinWidth(Params.world_height*20 + 55);
 		board.setAlwaysOnTop(true);
 		board.show();
+
+		// -------------------------------------------------- run stats screen
+		Stage stats = new Stage();
+		stats.setTitle("Critter Stats");
+		GridPane statsGrid = new GridPane();
+		statsGrid.setAlignment(Pos.CENTER);
+
+		statsBox = new ChoiceBox<>();
+
+		statsGrid.setVgap(5);
+		statsGrid.setHgap(5);
+
+		statsGrid.add(statsBox, 0, 0);
+
+		statsBox.setOnAction(e -> {
+			try {
+				displayStats(statsGrid, statsBox);
+			} catch (InvalidCritterException e1) {
+				//e1.printStackTrace();
+			}
+		});
+
+
+		Scene statsScene = new Scene(statsGrid, 200, 150);
+		stats.setScene(statsScene);
+		stats.setAlwaysOnTop(true);
+		stats.show();
 	}
     
 
@@ -366,11 +421,12 @@ public class Main extends Application {
 				n = Integer.valueOf(number.getText());
 			}
 			for (int i = 0; i < n; i++) {
+				statsBox.getItems().add(choiceBox.getValue());
 				Critter.makeCritter(choiceBox.getValue());
 			}
 			Critter.displayWorld();
 		}catch (Exception e){
-			System.out.println("Please enter a valid integer");
+			//System.out.println("Please enter a valid integer");
 			AlertBox.display("Invalid Input", "Please enter a valid integer!");
 		}
 
@@ -387,7 +443,7 @@ public class Main extends Application {
 			}
 			Critter.displayWorld();
 		}catch(Exception e){
-			System.out.println("Please enter a valid integer");
+			//System.out.println("Please enter a valid integer");
 			AlertBox.display("Invalid Input", "Please enter a valid integer!");
 		}
 
@@ -399,5 +455,39 @@ public class Main extends Application {
 
 	private void showChoice(){
 		Critter.displayWorld();
+	}
+
+	private void displayStats(GridPane statsGrid, ChoiceBox<String> statsBox) throws InvalidCritterException {
+		statsGrid.getChildren().clear();
+		statsGrid.add(statsBox, 0, 0);
+		ps.flush();
+		try {
+			baos.flush();
+		} catch (IOException e) {
+			//e.printStackTrace();
+		}
+		List<Critter> l = null;
+		try{
+			l = Critter.getInstances(myPackage + "." + statsBox.getValue());
+		}
+		catch(InvalidCritterException e){
+		}
+		try{
+			Critter temp = (Critter) Class.forName(myPackage + "." + statsBox.getValue()).newInstance();
+			Class<?> tempClass = temp.getClass();
+			Method m = tempClass.getMethod("runStats", List.class);
+			m.invoke(tempClass, l);
+		} catch (IllegalAccessException e1) {
+			Critter.runStats(l);
+		} catch (InstantiationException e2) {
+			Critter.runStats(l);
+		} catch (ClassNotFoundException e3) {
+			Critter.runStats(l);
+		} catch (NoSuchMethodException e4) {
+			Critter.runStats(l);
+		} catch (InvocationTargetException e5) {
+			Critter.runStats(l);
+		}
+		statsGrid.add(new Label(baos.toString()), 0, 1);
 	}
 }
