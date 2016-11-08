@@ -474,6 +474,8 @@ public class Main extends Application {
 			stepCount.setDisable(true);
 			choiceBox.setDisable(true);
 			slider.setDisable(true);
+			seed.setDisable(true);
+			seedset.setDisable(true);
 
 		}
 		else{
@@ -486,7 +488,8 @@ public class Main extends Application {
 			stepCount.setDisable(false);
 			choiceBox.setDisable(false);
 			slider.setDisable(false);
-
+			seed.setDisable(false);
+			seedset.setDisable(false);
 		}
 		
 	}
