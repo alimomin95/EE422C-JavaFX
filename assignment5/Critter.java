@@ -657,12 +657,13 @@ public abstract class Critter {
 		Shape s;
 		
 		int size = 20;
+		int size1 = 20;
 		switch (c.viewShape()) {
 		case SQUARE: s = new Rectangle(size, size); break;
 		case CIRCLE: s = new Circle(size/2); break;
-		case TRIANGLE: s = new Polygon(size/2, 0, 0, 20, 20, 20); break;
-		case DIAMOND: s = new Polygon(size/2, 0, 0, size/2, size/2, size, size, size/2); break;
-		case STAR: s = new Polygon(size/2, 0, 0, size, size, size/3, 0, size/3, size, size, size/2, 0); break;
+		case TRIANGLE: s = new Polygon(size1/2, 0, 0, size1, size1, size1); break;
+		case DIAMOND: s = new Polygon(size1/2, 0, 0, size1/2, size1/2, size1, size1, size1/2); break;
+		case STAR: s = new Polygon(size1/2, 0, 0, size1, size1, size1/3, 0, size1/3, size1, size1, size1/2, 0); break;
 		default: s = new Rectangle(size, size);
 		}
 		s.setFill(c.viewColor());
@@ -671,17 +672,18 @@ public abstract class Critter {
 	}
 		
 	public static void displayWorld() {
-		Main.worldGrid.setHgap(3);
-		Main.worldGrid.setVgap(3);
+		Main.worldGrid.getChildren().clear();
+
+		//Main.worldGrid.setHgap(3);
+		//Main.worldGrid.setVgap(3);
 		for(int y = 0; y < Params.world_height; y++){
 			for(int x = 0; x < Params.world_width; x++){
-				Shape tmp = new Rectangle(21, 21);
+				Shape tmp = new Rectangle(25, 25);
 				tmp.setVisible(false);
 				Main.worldGrid.add(tmp, x, y);
 
 			}
 		}
-		
 		//Main.worldGrid.add(hack, Params.world_width, Params.world_height);
 		for(Critter c: population){
 			int x = c.x_coord;
