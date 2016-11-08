@@ -22,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -381,10 +382,13 @@ public class Main extends Application {
 		// ------------------------------------------------- world screen
 		worldGrid = new GridPane();
 		worldGrid.setAlignment(Pos.CENTER);
+		//worldGrid.getColumnConstraints().add(new ColumnConstraints(Params.world_width));
+		//worldGrid.getColumnConstraints().add(new ColumnConstraints(Params.world_height));
+
 		board = new Stage();
 		board.setTitle("World");
 
-		worldGrid.setGridLinesVisible(true);
+		//worldGrid.setGridLinesVisible(true);
 		Scene secondScene = new Scene(worldGrid, Params.world_width*20 + 20, Params.world_height*20 + 20);
 		//Painter.paint();
 		board.setScene(secondScene);
