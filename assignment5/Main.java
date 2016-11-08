@@ -22,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -304,6 +305,7 @@ public class Main extends Application {
 		animate = new Button("Animate");
 
 		Label seeder = new Label("Set seed value:");
+		seeder.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		seedset = new TextField();
 
 		seed.setMaxWidth(60);
@@ -341,11 +343,19 @@ public class Main extends Application {
 		grid.setHgap(10);
 		grid.setVgap(15);
 		grid.setPadding(new Insets(2, 2, 2, 2));
-		grid.setStyle("-fx-background-color:GRAY");
+		grid.setStyle("-fx-background-color:#CECECE");
+
+		DropShadow ds = new DropShadow();
+		ds.setOffsetY(3.0f);
+		ds.setColor(Color.color(0.4f, 0.4f, 0.4f));
+
 
 		Text welcome = new Text("Welcome to Critters!");
-		welcome.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+		welcome.setEffect(ds);
+		welcome.setFill(Color.BLUE);
+		welcome.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
 		Label make = new Label("Make critter: ");
+		make.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 
 		number.setMaxWidth(40);
 
@@ -395,6 +405,7 @@ public class Main extends Application {
 		// ------------------------------------------------- world screen
 		worldGrid = new GridPane();
 		worldGrid.setAlignment(Pos.CENTER);
+		worldGrid.setStyle("-fx-background-color:#6B4949");
 		//worldGrid.getColumnConstraints().add(new ColumnConstraints(Params.world_width));
 		//worldGrid.getColumnConstraints().add(new ColumnConstraints(Params.world_height));
 
