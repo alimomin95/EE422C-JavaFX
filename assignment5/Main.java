@@ -389,7 +389,7 @@ public class Main extends Application {
 		board.setTitle("World");
 
 		//worldGrid.setGridLinesVisible(true);
-		Scene secondScene = new Scene(worldGrid, Params.world_width*20 + 20, Params.world_height*20 + 20);
+		Scene secondScene = new Scene(worldGrid, Params.world_width*23 + 23, Params.world_height*23 + 23);
 		//Painter.paint();
 		board.setScene(secondScene);
 		board.setOnCloseRequest(e -> System.exit(0));
