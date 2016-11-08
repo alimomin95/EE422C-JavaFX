@@ -671,11 +671,18 @@ public abstract class Critter {
 	}
 		
 	public static void displayWorld() {
-		//GridPane newWorldGrid = new GridPane();
-		//newWorldGrid.setHgap(5);
-		//newWorldGrid.setHgap(5);
+		Main.worldGrid.setHgap(3);
+		Main.worldGrid.setVgap(3);
+		for(int y = 0; y < Params.world_height; y++){
+			for(int x = 0; x < Params.world_width; x++){
+				Shape tmp = new Rectangle(21, 21);
+				tmp.setVisible(false);
+				Main.worldGrid.add(tmp, x, y);
 
-		Main.worldGrid.getChildren().clear();
+			}
+		}
+		
+		//Main.worldGrid.add(hack, Params.world_width, Params.world_height);
 		for(Critter c: population){
 			int x = c.x_coord;
 			int y = c.y_coord;
