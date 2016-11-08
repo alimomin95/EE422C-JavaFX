@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
@@ -69,15 +70,18 @@ public class Main extends Application {
 	static public ByteArrayOutputStream baos;
 	static public PrintStream ps;
 
+	public Button seed;
 	public Button button;
 	public Button step;
 	public Button show;
 	public Button quit;
 	public Button animate;
 	public TextField number;
+	public TextField seedset;
 	public ChoiceBox<String> choiceBox;
 	TextField stepCount;
 	Slider slide;
+
 
     // Gets the package name.  The usage assumes that Critter and its subclasses are all in the same package.
     static {
@@ -289,22 +293,26 @@ public class Main extends Application {
 		number = new TextField();
 		stepCount = new TextField();
 
+		seed = new Button("Set");
 		button = new Button("Make");
 		step = new Button("Step");
 		show = new Button("Show");
 		quit = new Button("Quit");
+
 		
 		animate = new Button("Animate");
 
-		
-		
+		Label seeder = new Label("Set seed value:");
+		seedset = new TextField();
+
+		seed.setMaxWidth(60);
 		button.setMaxWidth(60);
 		step.setMaxWidth(60);
 		show.setMaxWidth(60);
 		quit.setMaxWidth(60);
 
 		choiceBox = new ChoiceBox<>();
-		button.setStyle("-fx-background-color:RED");
+		quit.setStyle("-fx-background-color:RED");
 
 		ChoiceBox<String> choiceBox = new ChoiceBox<>();
 
@@ -314,6 +322,7 @@ public class Main extends Application {
 
 		choiceBox.setValue("Craig");
 
+		seed.setOnAction(e -> setSeed());
 		button.setOnAction(e -> {
 			try {
 				getChoice(choiceBox, number);
@@ -339,20 +348,24 @@ public class Main extends Application {
 
 		number.setMaxWidth(40);
 
+		seedset.setMaxWidth(40);
 
 		stepCount.setMaxWidth(40);
 
 
 		grid.add(welcome, 0, 0, 3, 1);
-		grid.add(make, 0, 1, 1, 1);
-		grid.add(choiceBox, 1, 1, 1, 1);
-		grid.add(number, 2, 1, 1, 1);
-		grid.add(button, 3, 1, 1, 1);
-		grid.add(stepCount, 2, 3, 1, 1);
-		grid.add(step, 3, 3, 1, 1);
-		grid.add(show, 3, 5, 1, 1);
-		grid.add(quit, 3, 7, 1, 1);
-		grid.add(animate, 0, 7, 1, 1);
+		grid.add(seeder, 0, 1, 2, 1);
+		grid.add(seedset, 2, 1, 1, 1);
+		grid.add(seed, 3, 1, 1, 1);
+		grid.add(make, 0, 2, 1, 1);
+		grid.add(choiceBox, 1, 2, 1, 1);
+		grid.add(number, 2, 2, 1, 1);
+		grid.add(button, 3, 2, 1, 1);
+		grid.add(stepCount, 2, 4, 1, 1);
+		grid.add(step, 3, 4, 1, 1);
+		grid.add(show, 3, 6, 1, 1);
+		grid.add(quit, 3, 8, 1, 1);
+		grid.add(animate, 0, 8, 1, 1);
 
 		
 		grid.setGridLinesVisible(false);
@@ -366,12 +379,12 @@ public class Main extends Application {
 		slide.setMinorTickCount(0);
 		slide.setBlockIncrement(1);
 		slide.setSnapToTicks(true);
-		grid.add(slide, 1, 7);
+		grid.add(slide, 1, 8);
 
 		animate.setOnAction(e -> animateChoice(slide));
 
 
-		scene = new Scene(grid, 400 , 300);
+		scene = new Scene(grid, 400 , 400);
 		window.setScene(scene);
 		window.setAlwaysOnTop(true);
 		window.setMinWidth(400);
@@ -395,6 +408,8 @@ public class Main extends Application {
 		board.show();
 
 		// -------------------------------------------------- run stats screen
+		Stage statsStage = new Stage();
+		statsStage.setTitle("Critter Stats");
 
 	}
     
@@ -414,7 +429,7 @@ public class Main extends Application {
 			}
 			Critter.displayWorld();
 		}catch (Exception e){
-			System.out.println("Please enter a valid integer");
+			//System.out.println("Please enter a valid integer");
 			AlertBox.display("Invalid Input", "Please enter a valid integer!");
 		}
 
@@ -434,7 +449,7 @@ public class Main extends Application {
 			}
 			Critter.displayWorld();
 		}catch(Exception e){
-			System.out.println("Please enter a valid integer");
+			//System.out.println("Please enter a valid integer");
 			AlertBox.display("Invalid Input", "Please enter a valid integer!");
 		}
 
@@ -475,5 +490,22 @@ public class Main extends Application {
 	private void showChoice(){
 		Critter.displayWorld();
 	}
-	
+
+	private void setSeed(){
+		try{
+			long n = 0;
+			if(!seedset.getText().equals("")){
+				n = Long.valueOf(seedset.getText());
+			}
+			Critter.setSeed(n);
+		}catch(Exception e){
+			//System.out.println("Please enter a valid integer");
+			AlertBox.display("Invalid Input", "Please enter a valid integer!");
+		}
+	}
+
+	public void displayStats(){
+
+	}
+
 }
