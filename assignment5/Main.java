@@ -38,6 +38,7 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.lang.reflect.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
@@ -67,7 +68,7 @@ public class Main extends Application {
 	static private ArrayList<String> fileName = new ArrayList<>();
 	static public GridPane worldGrid;
 	static public Stage board;
-	static private ArrayList<String> currentCrits = new ArrayList<>();
+
 	ChoiceBox<String> statsBox;
 	static public ByteArrayOutputStream baos;
 	static public PrintStream ps;
@@ -83,6 +84,13 @@ public class Main extends Application {
 	public ChoiceBox<String> choiceBox;
 	TextField stepCount;
 	Slider slide;
+	public Button statsBtn;
+	public ChoiceBox<String> statsDrop;
+	public Stage statsStage;
+	public GridPane statsPane;
+	public Text statsText;
+
+
 
 
     // Gets the package name.  The usage assumes that Critter and its subclasses are all in the same package.
@@ -300,6 +308,7 @@ public class Main extends Application {
 		step = new Button("Step");
 		show = new Button("Show");
 		quit = new Button("Quit");
+		statsBtn = new Button("Show Stats");
 
 		
 		animate = new Button("Animate");
@@ -319,7 +328,10 @@ public class Main extends Application {
 
 		ChoiceBox<String> choiceBox = new ChoiceBox<>();
 
+		statsDrop = new ChoiceBox<>();
+
 		for(String s: fileName){
+			statsDrop.getItems().add(s);
 			choiceBox.getItems().add(s);
 		}
 
@@ -374,7 +386,8 @@ public class Main extends Application {
 		grid.add(button, 3, 2, 1, 1);
 		grid.add(stepCount, 2, 4, 1, 1);
 		grid.add(step, 3, 4, 1, 1);
-		grid.add(show, 3, 6, 1, 1);
+		grid.add(statsDrop, 2, 6, 1, 1);
+		grid.add(statsBtn, 3, 6, 1, 1);
 		grid.add(quit, 3, 8, 1, 1);
 		grid.add(animate, 0, 8, 1, 1);
 
@@ -423,9 +436,16 @@ public class Main extends Application {
 		board.show();
 
 		// -------------------------------------------------- run stats screen
-		Stage statsStage = new Stage();
+		statsStage = new Stage();
 		statsStage.setTitle("Critter Stats");
-
+		statsPane = new GridPane();
+		statsDrop.setValue("Craig");
+		statsText = new Text();
+		statsBtn.setOnAction(e -> displayStats());
+		Scene statsScene = new Scene(statsPane, 100, 100);
+		statsStage.setScene(statsScene);
+		statsStage.setAlwaysOnTop(true);
+		statsStage.show();
 	}
     
 
@@ -461,9 +481,11 @@ public class Main extends Application {
 			}
 			for(int i = 1; i <= n; i++){
 				Critter.worldTimeStep();
+				displayStats();
 			}
 			Critter.displayWorld();
 		}catch(Exception e){
+			e.printStackTrace();
 			//System.out.println("Please enter a valid integer");
 			AlertBox.display("Invalid Input", "Please enter a valid integer!");
 		}
@@ -523,6 +545,44 @@ public class Main extends Application {
 	}
 
 	public void displayStats(){
+		statsPane.getChildren().clear();
+		baos = new ByteArrayOutputStream();
+		ps = new PrintStream(baos);
+		// IMPORTANT: Save the old System.out!
+		PrintStream old = System.out;
+		// Tell Java to use your special stream
+		System.setOut(ps);
+		// Print some output: goes to your special stream
+		List<Critter> l = null;
+		try{
+			l = Critter.getInstances(myPackage + "." + statsDrop.getValue());
+
+		}
+		catch(InvalidCritterException e){
+		}
+		try{
+			Critter temp = (Critter) Class.forName(myPackage + "." + statsDrop.getValue()).newInstance();
+			Class<?> tempClass = temp.getClass();
+			Method m = tempClass.getMethod("runStats", List.class);
+			m.invoke(tempClass, l);
+		} catch (IllegalAccessException e1) {
+			Critter.runStats(l);
+		} catch (InstantiationException e2) {
+			Critter.runStats(l);
+		} catch (ClassNotFoundException e3) {
+			Critter.runStats(l);
+		} catch (NoSuchMethodException e4) {
+			Critter.runStats(l);
+		} catch (InvocationTargetException e5) {
+			Critter.runStats(l);
+		}
+		// Put things back
+		System.out.flush();
+		System.setOut(old);
+		System.out.println(baos);
+		statsText.setText(baos.toString());
+		statsPane.add(statsText, 0, 0);
+		statsStage.show();
 
 	}
 
