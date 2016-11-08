@@ -399,33 +399,7 @@ public class Main extends Application {
 		board.show();
 
 		// -------------------------------------------------- run stats screen
-		/*
-		Stage stats = new Stage();
-		stats.setTitle("Critter Stats");
-		GridPane statsGrid = new GridPane();
-		statsGrid.setAlignment(Pos.CENTER);
 
-		statsBox = new ChoiceBox<>();
-
-		statsGrid.setVgap(5);
-		statsGrid.setHgap(5);
-
-		statsGrid.add(statsBox, 0, 0);
-
-		statsBox.setOnAction(e -> {
-			try {
-				displayStats(statsGrid, statsBox);
-			} catch (InvalidCritterException e1) {
-				//e1.printStackTrace();
-			}
-		});
-
-
-		Scene statsScene = new Scene(statsGrid, 200, 150);
-		stats.setScene(statsScene);
-		stats.setAlwaysOnTop(true);
-		stats.show();
-		*/
 	}
     
 
@@ -505,40 +479,5 @@ public class Main extends Application {
 	private void showChoice(){
 		Critter.displayWorld();
 	}
-
-	/*
-	private void displayStats(GridPane statsGrid, ChoiceBox<String> statsBox) throws InvalidCritterException {
-		statsGrid.getChildren().clear();
-		statsGrid.add(statsBox, 0, 0);
-		ps.flush();
-		try {
-			baos.flush();
-		} catch (IOException e) {
-			//e.printStackTrace();
-		}
-		List<Critter> l = null;
-		try{
-			l = Critter.getInstances(myPackage + "." + statsBox.getValue());
-		}
-		catch(InvalidCritterException e){
-		}
-		try{
-			Critter temp = (Critter) Class.forName(myPackage + "." + statsBox.getValue()).newInstance();
-			Class<?> tempClass = temp.getClass();
-			Method m = tempClass.getMethod("runStats", List.class);
-			m.invoke(tempClass, l);
-		} catch (IllegalAccessException e1) {
-			Critter.runStats(l);
-		} catch (InstantiationException e2) {
-			Critter.runStats(l);
-		} catch (ClassNotFoundException e3) {
-			Critter.runStats(l);
-		} catch (NoSuchMethodException e4) {
-			Critter.runStats(l);
-		} catch (InvocationTargetException e5) {
-			Critter.runStats(l);
-		}
-		statsGrid.add(new Label(baos.toString()), 0, 1);
-	}
-	*/
+	
 }
