@@ -177,7 +177,7 @@ public class Main extends Application {
 
 		window = primaryStage;
 		window.setTitle("Configuration Panel");
-		window.setX(20);
+		window.setX(40);
 		window.setY(200);
 		//window.getIcons().add(new Image(getClass().getResourceAsStream("file:critterlogo.png")));
 
@@ -189,7 +189,7 @@ public class Main extends Application {
 		step = new Button("Step");
 		show = new Button("Show");
 		quit = new Button("Quit");
-		statsBtn = new Button("Show Stats");
+		statsBtn = new Button("Stats");
 
 		
 		animate = new Button("Animate");
@@ -203,7 +203,7 @@ public class Main extends Application {
 		step.setMaxWidth(60);
 		show.setMaxWidth(60);
 		quit.setMaxWidth(60);
-
+		statsBtn.setMaxWidth(60);
 		choiceBox = new ChoiceBox<>();
 		quit.setStyle("-fx-background-color:RED");
 
@@ -292,7 +292,7 @@ public class Main extends Application {
 		scene = new Scene(grid, 400 , 400);
 		window.setScene(scene);
 		window.setAlwaysOnTop(true);
-		window.setMinWidth(400);
+		window.setMinWidth(450);
 		window.setMinHeight(300);
 		window.show();
 
@@ -347,11 +347,11 @@ public class Main extends Application {
 		statsDrop.setValue("Craig");
 		statsText = new Text();
 		statsBtn.setOnAction(e -> displayStats());
-		Scene statsScene = new Scene(statsPane, 400, 200);
+		Scene statsScene = new Scene(statsPane, 800, 200);
 		statsStage.setScene(statsScene);
 		statsStage.setOnCloseRequest(e -> System.exit(0));
-		statsStage.setX(1300);
-		statsStage.setY(200);
+		statsStage.setX(200);
+		statsStage.setY(700);
 		statsStage.setAlwaysOnTop(true);
 		statsStage.show();
 	}
@@ -444,6 +444,7 @@ public class Main extends Application {
 			long n = 0;
 			if(!seedset.getText().equals("")){
 				n = Long.valueOf(seedset.getText());
+				AlertBox.display("Seed set", "The seed has been set to: " + n);
 			}
 			Critter.setSeed(n);
 		}catch(Exception e){
