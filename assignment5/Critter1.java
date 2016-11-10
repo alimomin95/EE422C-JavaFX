@@ -1,4 +1,4 @@
-/* CRITTERS Aggie.java
+/* CRITTERS Critter1.java
  * EE422C Project 5 submission by
  * Quinten Zambeck
  * qaz62
@@ -21,7 +21,7 @@ import java.awt.*;
 import assignment5.Critter.CritterShape;
 
 //Created by Quinn Z.
-public class Aggie extends Critter {
+public class Critter1 extends Critter {
 	int cultPower = 0;
 	
 	boolean move = false; //it won't move until it's cultPower hits 50
@@ -32,10 +32,10 @@ public class Aggie extends Critter {
     }
 
     public boolean fight(String enemy){
-    	if(this.look(0, true).equals("Longhorn") == false){
+    	if(this.look(0, true).equals("Critter2") == false){
     		run(0);
     	}
-    	if(cultPower > 100 || enemy.equals("Longhorn")){ //always fights Longhorn
+    	if(cultPower > 100 || enemy.equals("Critter2")){ //always fights Critter2
     		if(cultPower > 100){
     			cultPower -= 50;
     		}
@@ -67,7 +67,7 @@ public class Aggie extends Critter {
     	}
         //This critter runs to it's death
         if(getEnergy() > 150){
-            Aggie a = new Aggie();
+            Critter1 a = new Critter1();
             reproduce(a, 7);
         }
     }
@@ -76,7 +76,7 @@ public class Aggie extends Critter {
         int count = ag.size();
         if(count > 0) {
             System.out.println("There are " + count + " Aggies on the map.");
-            System.out.println("But anyone can be an Aggie, so...");
+            System.out.println("But anyone can be an Critter1, so...");
         }
         else{
             System.out.println("There must not be enough UT applicants!");
