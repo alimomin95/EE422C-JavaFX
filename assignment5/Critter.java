@@ -12,23 +12,12 @@
  */
 package assignment5;
 
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-
-import java.awt.*;
-//import java.awt.Color;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
-import javafx.scene.shape.Shape;
 
 
 
@@ -694,8 +683,6 @@ public abstract class Critter {
 	public static void displayWorld() {
 		Main.worldGrid.getChildren().clear();
 
-		//Main.worldGrid.setHgap(3);
-		//Main.worldGrid.setVgap(3);
 		for(int y = 0; y < Params.world_height; y++){
 			for(int x = 0; x < Params.world_width; x++){
 				Shape tmp = new Rectangle(25, 25);
@@ -704,18 +691,12 @@ public abstract class Critter {
 
 			}
 		}
-		//Main.worldGrid.add(hack, Params.world_width, Params.world_height);
 		for(Critter c: population){
 			int x = c.x_coord;
 			int y = c.y_coord;
-			//Shape shape = c.(c);
 			Shape shape = getIcon(c);
-			//Main.worldGrid.add(shape,x,y);
 			Main.worldGrid.add(shape,  x,  y);
 		}
-		//Scene secondScene = new Scene(Main.worldGrid, Params.world_width*30, Params.world_height*30);
-		//Scene newScreen = new Scene(Main.worldGrid, Params.world_width*30, Params.world_height*30);
-		//Main.board.setScene(newScreen);
 		
 		Main.board.show();
 	}

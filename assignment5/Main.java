@@ -1,4 +1,4 @@
-/* CRITTERS Critter.java
+/* CRITTERS Main.java
  * EE422C Project 5 submission by
  * Quinten Zambeck
  * qaz62
@@ -13,41 +13,26 @@
 
 package assignment5; // cannot be in default package
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-
-import java.awt.*;
 import java.lang.reflect.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
-
-import com.sun.xml.internal.ws.message.stream.PayloadStreamReaderMessage;
-
 import java.io.*;
 
 
@@ -113,46 +98,9 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
 		File folder = new File(System.getProperty("user.dir") + "/src/assignment5");
-		//System.out.println(System.getProperty("user.dir"));
-
-		// Create a stream to hold the output
-		//baos = new ByteArrayOutputStream();
-		//ps = new PrintStream(baos);
-		// IMPORTANT: Save the old System.out!
-		//PrintStream old = System.out;
-		// Tell Java to use your special stream
-		//System.setOut(ps);
-		// Print some output: goes to your special stream
-		//System.out.println("Foofoofoo!");
-		// Put things back
-		//System.out.flush();
-		//System.setOut(old);
-		// Show what happened
-		//System.out.println("Here: " + baos.toString());
 
 
 		listOfFiles = folder.listFiles();
-		/*for(File f: listOfFiles){
-			if(f.getName().equals("Params.java") || f.getName().equals("Main.java") || f.getName().equals("InvalidCritterException.java") || f.getName().equals("Header.java") || f.getName().equals("Critter.java")) {
-				continue;
-			}
-			String name = f.getName();
-			ArrayList<Character> cBuilder = new ArrayList<>();
-			for(int i = 0; i < name.length(); i ++){
-				if(name.charAt(i) == '.'){
-					break;
-				}
-				cBuilder.add(name.charAt(i));
-			}
-			char[] c = new char[cBuilder.size()];
-			for(int i = 0; i < cBuilder.size(); i ++){
-				c[i] = cBuilder.get(i);
-			}
-			String temp = new String(c);
-			fileName.add(temp);
-			//System.out.println(temp);
-		}
-		*/
 		for(File f : listOfFiles){
 			try{
 				String name = f.getName();
@@ -174,13 +122,11 @@ public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception {
 
-		//com.apple.eawt.Application.getApplication().setDockIconImage(Toolkit.getDefaultToolkit().getImage("file:critterlogo.png"));
 
 		window = primaryStage;
 		window.setTitle("Configuration Panel");
 		window.setX(40);
 		window.setY(200);
-		//window.getIcons().add(new Image(getClass().getResourceAsStream("file:critterlogo.png")));
 
 		number = new TextField();
 		stepCount = new TextField();
@@ -315,8 +261,6 @@ public class Main extends Application {
 		worldGrid = new GridPane();
 		worldGrid.setAlignment(Pos.CENTER);
 		worldGrid.setStyle("-fx-background-color:#6B4949");
-		//worldGrid.getColumnConstraints().add(new ColumnConstraints(Params.world_width));
-		//worldGrid.getColumnConstraints().add(new ColumnConstraints(Params.world_height));
 		
 		board = new Stage();
 		board.setTitle("World");
@@ -325,7 +269,6 @@ public class Main extends Application {
 		scroll.setContent(worldGrid);
 
 		Scene secondScene = new Scene(scroll, width, height);
-		//Painter.paint();
 		board.setScene(secondScene);
 
 		board.setOnCloseRequest(e -> System.exit(0));
@@ -371,12 +314,10 @@ public class Main extends Application {
 				throw new Exception();
 			}
 			for (int i = 0; i < n; i++) {
-				//statsBox.getItems().add(choiceBox.getValue());
 				Critter.makeCritter(choiceBox.getValue());
 			}
 			Critter.displayWorld();
 		}catch (Exception e){
-			//System.out.println("Please enter a valid integer");
 			AlertBox.display("Invalid Input", "Please enter a valid integer!");
 		}
 
@@ -398,14 +339,12 @@ public class Main extends Application {
 			Critter.displayWorld();
 		}catch(Exception e){
 			e.printStackTrace();
-			//System.out.println("Please enter a valid integer");
 			AlertBox.display("Invalid Input", "Please enter a valid integer!");
 		}
 
 	}
 	
 	private void animateChoice(Slider slider){
-		System.out.println((int) slider.getValue());
 
 		String buttonText = animate.getText();
 		
@@ -422,6 +361,7 @@ public class Main extends Application {
 			seed.setDisable(true);
 			seedset.setDisable(true);
 			reset.setDisable(true);
+			statsBtn.setDisable(true);
 		}
 		else{
 			animate.setText("Animate");
@@ -436,6 +376,7 @@ public class Main extends Application {
 			seed.setDisable(false);
 			seedset.setDisable(false);
 			reset.setDisable(false);
+			statsBtn.setDisable(false);
 		}
 		
 	}
