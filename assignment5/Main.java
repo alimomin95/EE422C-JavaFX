@@ -24,6 +24,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -34,6 +36,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.scene.control.ScrollPane;
 
 import java.awt.*;
 import java.lang.reflect.*;
@@ -89,7 +92,10 @@ public class Main extends Application {
 	public Stage statsStage;
 	public GridPane statsPane;
 	public Text statsText;
-
+	
+	//testing!!!!
+	public double mouseStartX;
+	public double mouseStartY;
 
 
 
@@ -240,7 +246,7 @@ public class Main extends Application {
 		welcome.setEffect(ds);
 		welcome.setFill(Color.BLUE);
 		welcome.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
-		Label make = new Label("Make critter: ");
+		Label make = new Label("Make:");
 		make.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 
 		number.setMaxWidth(40);
@@ -290,23 +296,37 @@ public class Main extends Application {
 		window.show();
 
 		// ------------------------------------------------- world screen
+		ScrollPane scroll = new ScrollPane();
+		scroll.setPrefSize(500, 500);
+		scroll.setStyle("-fx-background-color:#6B4949");
+		
 		worldGrid = new GridPane();
 		worldGrid.setAlignment(Pos.CENTER);
 		worldGrid.setStyle("-fx-background-color:#6B4949");
 		//worldGrid.getColumnConstraints().add(new ColumnConstraints(Params.world_width));
 		//worldGrid.getColumnConstraints().add(new ColumnConstraints(Params.world_height));
-
+		
 		board = new Stage();
 		board.setTitle("World");
 
-		//worldGrid.setGridLinesVisible(true);
-		Scene secondScene = new Scene(worldGrid, Params.world_width*25 + 25, Params.world_height*25 + 25);
+		worldGrid.setGridLinesVisible(true);
+		scroll.setContent(worldGrid);
+
+		Scene secondScene = new Scene(scroll, Params.world_width*25 + 25, Params.world_height*25 + 25);
 		//Painter.paint();
 		board.setScene(secondScene);
+
 		board.setOnCloseRequest(e -> System.exit(0));
-		board.setMinHeight(Params.world_width*20 + 75);
-		board.setMinWidth(Params.world_height*20 + 55);
+		//board.setMinHeight(Params.world_width*20 + 75);
+		//board.setMinWidth(Params.world_height*20 + 55);
+		board.setHeight(500);
+		board.setWidth(500);
+		board.setMinHeight(500);
+		board.setMinWidth(500);
+
 		board.setAlwaysOnTop(true);
+		
+		Critter.displayWorld();
 		board.show();
 
 		// -------------------------------------------------- run stats screen
@@ -462,5 +482,4 @@ public class Main extends Application {
 		statsStage.show();
 
 	}
-
 }

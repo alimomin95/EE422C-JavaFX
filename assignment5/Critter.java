@@ -570,7 +570,6 @@ public abstract class Critter {
 			}
 		}
 
-		
 		//add babies to population
 		for(Critter b : babies){
 			population.add(b);
@@ -578,7 +577,6 @@ public abstract class Critter {
 			//babies.remove(b);
 		}
 		babies.clear();
-
 		for(int i = 0; i < Params.refresh_algae_count; i++){
 			try{
 				makeCritter("Algae");
