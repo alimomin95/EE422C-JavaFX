@@ -28,7 +28,7 @@ public class Critter1 extends Critter {
 	
     @Override
     public String toString() {
-        return "A";
+        return "1";
     }
 
     public boolean fight(String enemy){
@@ -48,7 +48,7 @@ public class Critter1 extends Critter {
 	public CritterShape viewShape() { return CritterShape.SQUARE; }
 
 	@Override
-	public javafx.scene.paint.Color viewColor() { return javafx.scene.paint.Color.ORANGE; }
+	public javafx.scene.paint.Color viewColor() { return javafx.scene.paint.Color.BLUE; }
 
     @Override
     public void doTimeStep() {

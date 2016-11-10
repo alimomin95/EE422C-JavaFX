@@ -25,7 +25,7 @@ import assignment5.Critter.CritterShape;
 public class Critter4 extends Critter{
     @Override
     public String toString() {
-        return "A";
+        return "4";
     }
 
     public boolean fight(String enemy){
@@ -36,10 +36,10 @@ public class Critter4 extends Critter{
     }
 
 	@Override
-	public CritterShape viewShape() { return CritterShape.SQUARE; }
+	public CritterShape viewShape() { return CritterShape.CIRCLE; }
 
 	@Override
-	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.BLUE; }
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.RED; }
 
     @Override
     public void doTimeStep(){

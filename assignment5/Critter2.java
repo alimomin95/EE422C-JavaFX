@@ -27,7 +27,7 @@ public class Critter2 extends Critter {
 	
     @Override
     public String toString() {
-        return "U";
+        return "2";
     }
 
     //fights aggies no matter what. Fights others only if gpa is 3 or 4
