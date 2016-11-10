@@ -83,6 +83,7 @@ public class Main extends Application {
 	public Button show;
 	public Button quit;
 	public Button animate;
+	public Button reset;
 	public TextField number;
 	public TextField seedset;
 	public ChoiceBox<String> choiceBox;
@@ -190,7 +191,7 @@ public class Main extends Application {
 		show = new Button("Show");
 		quit = new Button("Quit");
 		statsBtn = new Button("Stats");
-
+		reset = new Button("Reset");
 		
 		animate = new Button("Animate");
 
@@ -204,6 +205,7 @@ public class Main extends Application {
 		show.setMaxWidth(60);
 		quit.setMaxWidth(60);
 		statsBtn.setMaxWidth(60);
+		reset.setMaxWidth(60);
 		choiceBox = new ChoiceBox<>();
 		quit.setStyle("-fx-background-color:RED");
 
@@ -230,6 +232,7 @@ public class Main extends Application {
 		show.setOnAction(e -> showChoice());
 		quit.setOnAction(e -> System.exit(0));
 		window.setOnCloseRequest(e -> System.exit(0));
+		reset.setOnAction(e -> resetButton());
 		
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -258,6 +261,7 @@ public class Main extends Application {
 
 
 		grid.add(welcome, 0, 0, 3, 1);
+		grid.add(reset, 3, 0, 1, 1);
 		grid.add(seeder, 0, 1, 2, 1);
 		grid.add(seedset, 2, 1, 1, 1);
 		grid.add(seed, 3, 1, 1, 1);
@@ -417,7 +421,7 @@ public class Main extends Application {
 			slider.setDisable(true);
 			seed.setDisable(true);
 			seedset.setDisable(true);
-
+			reset.setDisable(true);
 		}
 		else{
 			animate.setText("Animate");
@@ -431,6 +435,7 @@ public class Main extends Application {
 			slider.setDisable(false);
 			seed.setDisable(false);
 			seedset.setDisable(false);
+			reset.setDisable(false);
 		}
 		
 	}
@@ -493,5 +498,12 @@ public class Main extends Application {
 		statsPane.add(statsText, 0, 0);
 		statsStage.show();
 
+	}
+	
+	public void resetButton(){
+		Critter.clearWorld();
+		Critter.displayWorld();
+		AlertBox.display("World Cleared", "The world has been cleared");
+		
 	}
 }
