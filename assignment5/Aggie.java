@@ -32,6 +32,9 @@ public class Aggie extends Critter {
     }
 
     public boolean fight(String enemy){
+    	if(this.look(0, true).equals("Longhorn") == false){
+    		run(0);
+    	}
     	if(cultPower > 100 || enemy.equals("Longhorn")){ //always fights Longhorn
     		if(cultPower > 100){
     			cultPower -= 50;
@@ -42,10 +45,10 @@ public class Aggie extends Critter {
     }
 
 	@Override
-	public CritterShape viewShape() { return CritterShape.STAR; }
+	public CritterShape viewShape() { return CritterShape.SQUARE; }
 
 	@Override
-	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.BLUE; }
+	public javafx.scene.paint.Color viewColor() { return javafx.scene.paint.Color.ORANGE; }
 
     @Override
     public void doTimeStep() {

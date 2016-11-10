@@ -37,6 +37,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 
 import java.awt.*;
 import java.lang.reflect.*;
@@ -298,6 +299,10 @@ public class Main extends Application {
 		// ------------------------------------------------- world screen
 		ScrollPane scroll = new ScrollPane();
 		scroll.setPrefSize(500, 500);
+		scroll.setPannable(true);
+		scroll.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scroll.setVbarPolicy(ScrollBarPolicy.NEVER);
+
 		scroll.setStyle("-fx-background-color:#6B4949");
 		
 		worldGrid = new GridPane();

@@ -76,10 +76,10 @@ public abstract class Critter {
 
 	// this is new!!!!!!!
 	protected String look(int direction, boolean steps) {
-
 		this.energy -= Params.look_energy_cost;
 
 		int dx = 0, dy = 0;
+		int lookX = 0, lookY = 0;
 
 		if(direction == 2){
 			dx = 0; dy = -1;
@@ -106,25 +106,47 @@ public abstract class Critter {
 			dx = -1; dy = -1;
 		}
 
-		int x = this.x_coord + dx;
-		int y = this.y_coord + dy;
+		if((x_coord + dx) < 0){
+			lookX = dx + Params.world_width;
+		}
+		else{
+			lookX = (this.x_coord + dx) % Params.world_width;
+		}
+
+		if((this.y_coord + dy) < 0){
+			lookY = dy + Params.world_height;
+		}
+		else{
+			lookY = (this.y_coord + dy) % Params.world_height;
+		}
 
 		if(steps){
-			x += dx;
-			y += dy;
+			if((x_coord + dx) < 0){
+				lookX = dx + Params.world_width;
+			}
+			else{
+				lookX = (this.x_coord + dx) % Params.world_width;
+			}
 
-			if(positionMap[x][y] >= 1) {
+			if((this.y_coord + dy) < 0){
+				lookY = dy + Params.world_height;
+			}
+			else{
+				lookY = (this.y_coord + dy) % Params.world_height;
+			}
+
+			if(positionMap[lookX][lookY] >= 1) {
 				for(Critter c: population){
-					if(onSquare(c, x, y)){
+					if(onSquare(c, lookX, lookY)){
 						return c.toString();
 					}
 				}
 			}
 		}
 		else{
-			if(positionMap[x][y] >= 1) {
+			if(positionMap[lookX][lookY] >= 1) {
 				for(Critter c: population){
-					if(onSquare(c, x, y)){
+					if(onSquare(c, lookX, lookY)){
 						return c.toString();
 					}
 				}
