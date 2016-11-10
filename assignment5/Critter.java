@@ -698,44 +698,6 @@ public abstract class Critter {
 		//Main.board.setScene(newScreen);
 		
 		Main.board.show();
-
-
-
-
-		/*
-		System.out.print("+");
-		
-		for(int i = 0; i < Params.world_width; i++){
-			System.out.print("-");
-		}
-		System.out.println("+");
-		System.out.flush();
-		for(int j = 0; j < Params.world_height; j++){
-			System.out.print("|");
-			System.out.flush();
-
-			for(int i = 0; i < Params.world_width; i++){
-				if(positionMap[i][j] >= 1){
-					for(Critter c : population){
-						if(onSquare(c, i, j)){
-							System.out.print(c);
-							break;
-						}
-					}
-				}
-				else{
-					System.out.print(" ");
-				}
-			}
-			System.out.println("|");
-		}
-		
-		System.out.print("+");
-		for(int i = 0; i < Params.world_width; i++){
-			System.out.print("-");
-		}
-		System.out.println("+");
-	*/
 	}
 
 }
