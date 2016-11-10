@@ -297,6 +297,9 @@ public class Main extends Application {
 		window.show();
 
 		// ------------------------------------------------- world screen
+		int width = 25*Params.world_width + 18;
+		int height = 25*Params.world_height + 41;
+		
 		ScrollPane scroll = new ScrollPane();
 		scroll.setPrefSize(500, 500);
 		scroll.setPannable(true);
@@ -317,17 +320,20 @@ public class Main extends Application {
 		worldGrid.setGridLinesVisible(true);
 		scroll.setContent(worldGrid);
 
-		Scene secondScene = new Scene(scroll, Params.world_width*25 + 25, Params.world_height*25 + 25);
+		Scene secondScene = new Scene(scroll, width, height);
 		//Painter.paint();
 		board.setScene(secondScene);
 
 		board.setOnCloseRequest(e -> System.exit(0));
-		//board.setMinHeight(Params.world_width*20 + 75);
-		//board.setMinWidth(Params.world_height*20 + 55);
-		board.setHeight(500);
 		board.setWidth(500);
-		board.setMinHeight(500);
-		board.setMinWidth(500);
+		board.setHeight(500);
+
+		board.setMinWidth(200);
+		board.setMinHeight(200);
+		
+		board.setMaxWidth(width);
+		board.setMaxHeight(height);
+
 
 		board.setAlwaysOnTop(true);
 		

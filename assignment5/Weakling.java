@@ -46,7 +46,9 @@ public class Weakling extends Critter {
 
     @Override
     public void doTimeStep() {
-        run(getRandomInt(8));
+    	if(look(4, true).equals("")){
+    		run(4);
+    	}
         //This critter runs to it's death
         if(getEnergy() > 2){
             Weakling w = new Weakling();
