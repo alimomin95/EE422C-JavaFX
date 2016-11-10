@@ -1,4 +1,4 @@
-/* CRITTERS Weakling.java
+/* CRITTERS Critter3.java
  * EE422C Project 5 submission by
  * Quinten Zambeck
  * qaz62
@@ -23,7 +23,7 @@ import assignment5.Critter.CritterShape;
 /**
  * Created by aliziyaan on 10/20/16.
  */
-public class Weakling extends Critter {
+public class Critter3 extends Critter {
     @Override
     public String toString() {
         return "W";
@@ -51,7 +51,7 @@ public class Weakling extends Critter {
     	}
         //This critter runs to it's death
         if(getEnergy() > 2){
-            Weakling w = new Weakling();
+            Critter3 w = new Critter3();
             reproduce(w, 6);
         }
     }

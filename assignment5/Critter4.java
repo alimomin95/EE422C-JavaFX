@@ -1,4 +1,4 @@
-/* CRITTERS AliGOD.java
+/* CRITTERS Critter4.java
  * EE422C Project 5 submission by
  * Quinten Zambeck
  * qaz62
@@ -22,7 +22,7 @@ import assignment5.Critter.CritterShape;
 /**
  * Created by aliziyaan on 10/18/16.
  */
-public class AliGOD extends Critter{
+public class Critter4 extends Critter{
     @Override
     public String toString() {
         return "A";
@@ -45,7 +45,7 @@ public class AliGOD extends Critter{
     public void doTimeStep(){
         walk(0);
         if(getEnergy() > 50){
-            AliGOD jesus = new AliGOD();
+            Critter4 jesus = new Critter4();
             reproduce(jesus, 6);
         }
     }
